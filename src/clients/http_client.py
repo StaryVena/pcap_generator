@@ -1,32 +1,44 @@
-import os
-from os.path import join
-import time
-from selenium import webdriver
-from pathlib import Path
-from selenium.webdriver.common.by import By
+import abc
+import logging
 
-# http://selenium-python.readthedocs.io/api.html
-act_dir = os.path.dirname(__file__)
-data_dir = join(str(Path(act_dir).parent.parent), 'data')
+LIST_MAXIMUM_LENGTH = 200
 
-options = webdriver.ChromeOptions()
-options.add_argument('headless')
-options.add_argument('window-size=1200x600')
+class HttpClient(object):
+    __metaclass__ = abc.ABCMeta
 
-chromedriver_path = join(data_dir, 'chromedriver')
-print(chromedriver_path)
-driver = webdriver.Chrome(chromedriver_path, chrome_options=options)  # Optional argument, if not specified will search path.
-driver.get('http://www.google.com/xhtml')
-# wait up to 10 seconds for the elements to become available
-driver.implicitly_wait(10)
-links = driver.find_elements_by_tag_name('a')
-for link in links:
-    url = link.get_attribute("href")
-    print(url)
+    def __init__(self, index, wait_interval):
+        self.index = index
+        self.wait_interval = wait_interval
 
-time.sleep(5)  # Let the user actually see something!
-search_box = driver.find_element_by_name('q')
-search_box.send_keys('ChromeDriver')
-search_box.submit()
-time.sleep(5)  # Let the user actually see something!
-driver.quit()
+    @abc.abstractmethod
+    def page_links(self, link):
+        """Returns all valid urls from actual page."""
+        return
+
+    @abc.abstractmethod
+    def end(self):
+        """clean up"""
+        return
+
+    def start_crawling(self):
+        links = [self.index]
+        while len(links) > 0:
+            links.extend(self.page_links(links.pop(0)))
+            if len(links) > LIST_MAXIMUM_LENGTH:
+                links = links[:LIST_MAXIMUM_LENGTH/2]
+        self.end()
+
+    def is_link_ok(link):
+        print(link)
+        # empty href
+        if link is None:
+            logging.debug(link + ' BAD')
+            return False
+        # javascript action
+        if link.startswith('javascript'):
+            logging.debug(link + ' BAD')
+            return False
+        # TODO relative link
+        # otherwise is OK
+        logging.debug(link + ' OK')
+        return True
