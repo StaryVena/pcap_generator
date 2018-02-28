@@ -2,16 +2,22 @@ import time
 import shlex
 from bs4 import BeautifulSoup as Soup
 from subprocess import Popen, PIPE
-from urllib.parse import  urljoin
+from urllib.parse import urljoin
 
 from clients.http_client import HttpClient
 
 
 # http://selenium-python.readthedocs.io/api.html
 class WgetDownloader(HttpClient):
+    """
 
-    def __init__(self, index, wait_interval=10):
-        HttpClient.__init__(self, index, wait_interval)
+    """
+    def __init__(self, wait_interval=10):
+        HttpClient.__init__(self, wait_interval)
+
+    def close_driver(self):
+        # No need to close anything.
+        pass
 
     def page_links(self, link):
         # TODO download images, css, and scripts
