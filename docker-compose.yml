@@ -15,6 +15,7 @@ services:
       - NGINX_PORT=80
     command: /bin/bash -c "envsubst < /etc/nginx/conf.d/mysite.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
 
+  # https://github.com/kaazing/dockerfiles/tree/master/tcpdump
   tcpdump:
     image: kaazing/tcpdump
     network_mode: "service:web_nginx"
@@ -25,7 +26,11 @@ services:
     command: [ "-C", "100", "-W", "2", "-v", "-i", "any", "-w", "/tcpdump/myapp.pcap" ]
 
 
-#  http_crawler:
-#    build: ../http_client
-#    volumes:
-#      - ../src/http_client:/usr/src/app
+  http_crawler:
+    build: ./src/http_client
+    depends_on:
+            - web_nginx
+#    command: ["python", "run.py" "-p" "http://web_nginx"]
+    #deploy:
+    #  mode: replicated
+    #  replicas: 6

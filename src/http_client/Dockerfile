@@ -1,6 +1,6 @@
 FROM python:3
 
-COPY src/http_client /usr/src/app
+COPY app /usr/src/app
 
 WORKDIR /usr/src/app
 
