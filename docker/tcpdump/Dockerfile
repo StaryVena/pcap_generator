@@ -1,8 +1,10 @@
 FROM alpine
 
-VOLUME  [ "/pcap" ]
-RUN apk add --no-cache tcpdump coreutils
+RUN apk add --update --no-cache tcpdump && rm -rf /var/cache/apk/*
+
+VOLUME  [ "/tcpdump" ]
+
+ENTRYPOINT [ "/usr/sbin/tcpdump" ]
 
 # -C file size in MB, -W files max count
-CMD [ "-C", "1000", "-W", "10", "-v", "-w", "/pcap/dump" ]
-ENTRYPOINT [ "/usr/sbin/tcpdump" ]
+CMD [ "-C", "1000", "-W", "10", "-v", "-w", "/tcpdump/dump.pcap" ]
