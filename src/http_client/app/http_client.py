@@ -4,7 +4,7 @@ import validators
 from random import shuffle
 
 # maximum urls queue length
-LIST_MAXIMUM_LENGTH = 200
+LIST_MAXIMUM_LENGTH = 1000
 
 
 class HttpClient(object):
@@ -14,6 +14,8 @@ class HttpClient(object):
     finds links and visits next page from urls list.
     :param wait_interval: Defines how many seconds wait before processing next page.
     """
+    start_url = None
+
     def __init__(self, wait_interval):
         self.log = logging.getLogger(__name__)
         self.log.addHandler(logging.NullHandler())
@@ -42,8 +44,13 @@ class HttpClient(object):
             links.append(index)
         else:
             self.log.warning("Invalid link "+index)
+        if self.start_url is None:
+            self.start_url = index
         while len(links) > 0:
             new_links = self.page_links(links.pop(0))
+            for url in new_links:
+                if not url.startswith(self.start_url):
+                    new_links.remove(url)
             # randomly shuffle links
             shuffle(links)
             links.extend(new_links)
@@ -51,6 +58,12 @@ class HttpClient(object):
             if len(links) > LIST_MAXIMUM_LENGTH:
                 links = links[:LIST_MAXIMUM_LENGTH//2]
         self.end()
+
+    def process_link(self, link):
+        try:
+            self.page_links(link)
+        except:
+            logging.info('Problem with processing: ' + link)
 
     @staticmethod
     def is_link_ok(link):
