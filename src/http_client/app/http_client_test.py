@@ -9,7 +9,8 @@ class HttpClientTest(unittest.TestCase):
                       'http://example.com/path/to/page?name=ferret&color=purple',
                       'https://docs.python.org/2/library/unittest.html',
                       'http://127.0.0.1:8080',
-                      'http://localhost:8080'
+                      'http://localhost:8080',
+                      'http://web-nginx.example.com:80'
                       ]
         invalid_urls = ['domain.com',
                         'http://domain',
