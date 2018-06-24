@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  web-nginx:
+    image: udfb/nginx-tcpdump
+    volumes:
+      - ./src/nginx/example_site:/usr/share/nginx/html
+      - ./output/tcpdump:/tcpdump
+    networks:
+      web:
+        aliases:
+          - web-nginx.example.com
+    ports:
+      - "80:80"
+    command: sh /script.sh
+
+
+  http_crawler:
+    image: udfb/http-generator:init
+    depends_on:
+            - web-nginx
+    networks:
+      - web
+    command: ["python", "run.py", "-p", "http://web-nginx.example.com"]
+    deploy:
+      mode: replicated
+      replicas: 6
+
+networks:
+  web:
