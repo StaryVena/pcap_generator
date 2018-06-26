@@ -1,3 +1,4 @@
+import time
 import logging.config
 from argparse import ArgumentParser
 
@@ -34,6 +35,6 @@ parser.add_argument("-c", "--crawler", dest="crawler", help="Define crawler (chr
                     metavar="URL", required=False, default='urllib')
 
 args = parser.parse_args()
-
+time.sleep(5)
 crawler = get_crawler(args.crawler)
 crawler.start_crawling(args.page)

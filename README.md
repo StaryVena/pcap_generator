@@ -21,7 +21,5 @@ docker stack rm webservice
 
 
 
-docker tag udfb:nginx-tcpdump udfb/nginx-tcpdump:init
-docker push udfb/nginx-tcpdump:init
-
-"Err": "starting container failed: OCI runtime create failed: container_linux.go:348: starting container process caused \"exec: \\\"/bin/bash\\\": stat /bin/bash: no such file or directory\": unknown",
+docker tag udfb:nginx-tcpdump udfb/nginx-tcpdump
+docker push udfb/nginx-tcpdump

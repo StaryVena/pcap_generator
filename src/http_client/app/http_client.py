@@ -1,7 +1,8 @@
 import abc
+import time
 import logging
 import validators
-from random import shuffle
+from random import shuffle, randint
 
 # maximum urls queue length
 LIST_MAXIMUM_LENGTH = 1000
@@ -64,6 +65,9 @@ class HttpClient(object):
             self.page_links(link)
         except:
             logging.info('Problem with processing: ' + link)
+
+    def wait(self):
+        time.sleep(randint(1, self.wait_interval))
 
     @staticmethod
     def is_link_ok(link):

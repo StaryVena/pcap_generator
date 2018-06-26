@@ -36,7 +36,7 @@ class SeleniumBrowser(HttpClient):
             url = link.get_attribute("href")
             if HttpClient.is_link_ok(url):
                 hrefs.append(url)
-        time.sleep(self.wait_interval)
+        self.wait()
         return hrefs
 
     def end(self):

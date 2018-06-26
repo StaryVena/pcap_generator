@@ -42,7 +42,7 @@ class UrllibDownloader(HttpClient):
             resource_urls = [urljoin(link, l.url) for l in extractor.extract_links(response)]
             for link in resource_urls:
                 self.download_file(link)
-        time.sleep(self.wait_interval)
+        self.wait()
         return hrefs
 
     def download_file(self, link):
