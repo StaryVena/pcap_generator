@@ -19,12 +19,26 @@ services:
     image: udfb/http-generator
     depends_on:
             - web-nginx
+    volumes:
+      - ./output/http_client/log:/tmp
     networks:
       - web
     command: ["python", "run.py", "-p", "http://web-nginx.example.com"]
     deploy:
       mode: replicated
-      replicas: 6
+      replicas: 5
+
+  ihulk:
+    image: udfb/ihulk
+    depends_on:
+            - web-nginx
+    networks:
+      - web
+    command: ["python", "ihulk.py", "http://web-nginx.example.com"]
+    deploy:
+      mode: replicated
+      replicas: 5
+
 
 networks:
   web:

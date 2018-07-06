@@ -1,7 +1,9 @@
 import abc
 import time
 import logging
+import logging.handlers
 import validators
+import uuid
 from random import shuffle, randint
 
 # maximum urls queue length
@@ -16,10 +18,14 @@ class HttpClient(object):
     :param wait_interval: Defines how many seconds wait before processing next page.
     """
     start_url = None
+    links_visited = 0
+    links_problem = 0
+    client_id = uuid.uuid4()
 
     def __init__(self, wait_interval):
         self.log = logging.getLogger(__name__)
-        self.log.addHandler(logging.NullHandler())
+        self.log.addHandler(logging.handlers.RotatingFileHandler('/tmp/http_client.log'))
+        self.log.setLevel(logging.INFO)
         self.wait_interval = wait_interval
 
     @abc.abstractmethod
@@ -48,23 +54,29 @@ class HttpClient(object):
         if self.start_url is None:
             self.start_url = index
         while len(links) > 0:
-            new_links = self.page_links(links.pop(0))
-            for url in new_links:
-                if not url.startswith(self.start_url):
-                    new_links.remove(url)
-            # randomly shuffle links
-            shuffle(links)
-            links.extend(new_links)
-            # if queue is too long, limit to half.
-            if len(links) > LIST_MAXIMUM_LENGTH:
-                links = links[:LIST_MAXIMUM_LENGTH//2]
+            link_to_process = links.pop(0)
+            self.links_visited += 1
+            try:
+                new_links = self.page_links(link_to_process)
+                for url in new_links:
+                    if not url.startswith(self.start_url):
+                        new_links.remove(url)
+                        # randomly shuffle links
+                shuffle(new_links)
+                links.extend(new_links)
+                # if queue is too long, limit to half.
+                if len(links) > LIST_MAXIMUM_LENGTH:
+                    links = links[:LIST_MAXIMUM_LENGTH // 2]
+            except Exception as e:
+                print(e)
+                self.log.debug('Problem processing '+link_to_process)
+                self.links_problem += 1
+            self.log.info(str(self.client_id) + ' status - problems: ' + str(self.links_problem) +  ' from: ' +
+                          str(self.links_visited))
+
+
         self.end()
 
-    def process_link(self, link):
-        try:
-            self.page_links(link)
-        except:
-            logging.info('Problem with processing: ' + link)
 
     def wait(self):
         time.sleep(randint(1, self.wait_interval))

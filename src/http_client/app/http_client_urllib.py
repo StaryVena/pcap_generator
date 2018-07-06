@@ -34,14 +34,20 @@ class UrllibDownloader(HttpClient):
         html = Soup(content, 'html.parser')
         hrefs = [urljoin(link, a['href']) for a in html.find_all('a')]
         # downloading page content
+
         if self.download_content:
             response = HtmlResponse(url=link, body=content, encoding='utf8')
             tags = ['img', 'embed', 'link', 'script']
             attributes = ['src', 'href']
             extractor = LxmlParserLinkExtractor(lambda x: x in tags, lambda x: x in attributes)
             resource_urls = [urljoin(link, l.url) for l in extractor.extract_links(response)]
-            for link in resource_urls:
-                self.download_file(link)
+            for content_link in resource_urls:
+                try:
+                    self.links_visited += 1
+                    self.download_file(content_link)
+                except:
+                    self.links_problem += 1
+                    print('Problem resolving content for ' + str(link))
         self.wait()
         return hrefs
 
@@ -50,5 +56,5 @@ class UrllibDownloader(HttpClient):
         Downloads and discards given file.
         :param link: URL of resource to be downloaded.
         '''
-        self.log.info('Downloading ' + link)
+        self.log.debug('Downloading ' + link)
         request.urlopen(link).read()
