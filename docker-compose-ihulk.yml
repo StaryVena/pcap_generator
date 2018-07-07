@@ -37,7 +37,7 @@ services:
     command: ["python", "ihulk.py", "http://web-nginx.example.com"]
     deploy:
       mode: replicated
-      replicas: 5
+      replicas: 20
 
 
 networks:

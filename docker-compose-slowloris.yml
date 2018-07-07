@@ -3,6 +3,11 @@ version: '3'
 services:
   web-nginx:
     image: udfb/nginx-tcpdump
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+
     volumes:
       - ./src/nginx/example_site:/usr/share/nginx/html
       - ./output/tcpdump:/tcpdump
@@ -13,7 +18,6 @@ services:
     ports:
       - "80:80"
     command: sh /script.sh
-
 
   http_crawler:
     image: udfb/http-generator
@@ -38,7 +42,6 @@ services:
     deploy:
       mode: replicated
       replicas: 20
-
 
 networks:
   web:

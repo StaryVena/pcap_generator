@@ -17,6 +17,7 @@ class UrllibDownloader(HttpClient):
     :param wait_interval: Defines how many seconds wait before processing next page.
     :param download_content: If true, alse CSS, images, and scripts are downloaded.
     """
+    timeout = 5
     def __init__(self, wait_interval=10, download_content=True):
         self.log = logging.getLogger(__name__)
         self.log.addHandler(logging.NullHandler())
@@ -28,9 +29,7 @@ class UrllibDownloader(HttpClient):
         pass
 
     def page_links(self, link):
-        opener = urllib.request.FancyURLopener({})
-        f = opener.open(link)
-        content = f.read()
+        content = request.urlopen(link, timeout=self.timeout).read().decode("utf-8")
         html = Soup(content, 'html.parser')
         hrefs = [urljoin(link, a['href']) for a in html.find_all('a')]
         # downloading page content
@@ -47,7 +46,7 @@ class UrllibDownloader(HttpClient):
                     self.download_file(content_link)
                 except:
                     self.links_problem += 1
-                    print('Problem resolving content for ' + str(link))
+                    print('Problem resolving content ' + str(content_link))
         self.wait()
         return hrefs
 
@@ -57,4 +56,4 @@ class UrllibDownloader(HttpClient):
         :param link: URL of resource to be downloaded.
         '''
         self.log.debug('Downloading ' + link)
-        request.urlopen(link).read()
+        request.urlopen(link, timeout=self.timeout).read()
