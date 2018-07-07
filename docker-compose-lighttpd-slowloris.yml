@@ -1,14 +1,16 @@
 version: '3'
 
 services:
-  web-apache:
-    image: udfb/apache-tcpdump
+  web-lighttpd:
+    image: udfb/lighttpd-tcpdump
+
     volumes:
+      - ./src/nginx/example_site:/var/www/localhost/htdocs
       - ./output/tcpdump:/tcpdump
     networks:
       web:
         aliases:
-          - web-nginx.example.com
+          - web-lighttpd.example.com
     ports:
       - "80:80"
     command: sh /script.sh
@@ -21,7 +23,7 @@ services:
       - ./output/http_client/log:/tmp
     networks:
       - web
-    command: ["python", "run.py", "-p", "http://web-apache.example.com"]
+    command: ["python", "run.py", "-p", "http://web-lighttpd.example.com"]
     deploy:
       mode: replicated
       replicas: 5
@@ -32,10 +34,10 @@ services:
             - web-nginx
     networks:
       - web
-    command: ["slowloris", "web-apache.example.com"]
+    command: ["slowloris", "web-lighttpd.example.com"]
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 0
 
 networks:
   web:
