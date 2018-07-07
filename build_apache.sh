@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t udfb/nginx-tcpdump src/nginx/
-docker push udfb/nginx-tcpdump
+docker build -t udfb/apache-tcpdump src/apache/
+docker push udfb/apache-tcpdump

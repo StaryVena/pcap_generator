@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  web-apache:
+    image: udfb/apache-tcpdump
+    volumes:
+      - ./output/tcpdump:/tcpdump
+    networks:
+      web:
+        aliases:
+          - web-nginx.example.com
+    ports:
+      - "80:80"
+    command: sh /script.sh
+
+  http_crawler:
+    image: udfb/http-generator
+    depends_on:
+            - web-nginx
+    volumes:
+      - ./output/http_client/log:/tmp
+    networks:
+      - web
+    command: ["python", "run.py", "-p", "http://web-apache.example.com"]
+    deploy:
+      mode: replicated
+      replicas: 5
+
+  slowloris:
+    image: udfb/slowloris
+    depends_on:
+            - web-nginx
+    networks:
+      - web
+    command: ["slowloris", "web-apache.example.com"]
+    deploy:
+      mode: replicated
+      replicas: 0
+
+networks:
+  web:
