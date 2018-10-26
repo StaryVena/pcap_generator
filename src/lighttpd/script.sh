@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-rc-service lighttpd start & /usr/sbin/tcpdump -C 1000 -v -i any -w /tcpdump/apache.pcap
+/usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf & /usr/sbin/tcpdump -C 1000 -v -i any -w /tcpdump/lighttpd.pcap

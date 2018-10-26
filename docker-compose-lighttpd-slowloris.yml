@@ -37,7 +37,7 @@ services:
     command: ["slowloris", "web-lighttpd.example.com"]
     deploy:
       mode: replicated
-      replicas: 0
+      replicas: 20
 
 networks:
   web:

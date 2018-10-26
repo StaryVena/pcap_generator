@@ -1,5 +1,4 @@
 # https://github.com/spujadas/lighttpd-docker
-
 FROM alpine
 
 RUN apk add --update --no-cache \
@@ -22,4 +21,4 @@ VOLUME /var/www/localhost
 VOLUME /etc/lighttpd
 VOLUME  [ "/tcpdump" ]
 
-CMD ["lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]
+CMD ["/script.sh"]
