@@ -1,0 +1,161 @@
+{
+  "id": "62bb4532-9265-4fa2-9767-f6a0c63f53ea",
+  "version": "1.1",
+  "name": "tets",
+  "url": "https://pocasi.uher.in",
+  "tests": [{
+    "id": "f929976b-c38d-4f26-80a7-fc2321bd355a",
+    "name": "pocasi",
+    "commands": [{
+      "id": "e631b572-6fa6-4a7f-a517-9672753d8880",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "924448be-c43e-4aa1-bf10-52a5ee037879",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1170",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "10ab2ba5-d971-4667-9c00-ddd03172efc0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Mobile formatted",
+      "targets": [
+        ["linkText=Mobile formatted", "linkText"],
+        ["css=p:nth-child(5) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Mobile formatted')]", "xpath:link"],
+        ["xpath=//div[@id='about']/p[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'mobile.html')]", "xpath:href"],
+        ["xpath=//p[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fbcea426-f5fd-4906-810c-a258de72a245",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(2)",
+      "targets": [
+        ["css=input:nth-child(2)", "css:finder"],
+        ["xpath=//input[@value='    Week     ']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7de136ad-4af8-43a4-904e-94870d405927",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(3)",
+      "targets": [
+        ["css=input:nth-child(3)", "css:finder"],
+        ["xpath=//input[@value='    Month    ']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2cce3517-7640-4e16-bdc7-06c944c62c7b",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(4)",
+      "targets": [
+        ["css=input:nth-child(4)", "css:finder"],
+        ["xpath=//input[@value='    Year     ']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "38c4c6d5-ddf8-4985-95bd-f31cd8792f35",
+      "comment": "",
+      "command": "click",
+      "target": "css=input[type=\"button\"]",
+      "targets": [
+        ["css=input[type=\"button\"]", "css"],
+        ["css=input:nth-child(1)", "css:finder"],
+        ["xpath=//input[@value='   Current   ']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "22e3af6e-12db-4bb2-b132-f55d3c9d8204",
+      "comment": "",
+      "command": "select",
+      "target": "name=noaaselect",
+      "targets": [],
+      "value": "label=2018-04"
+    }, {
+      "id": "ff9272d5-5c9b-4f63-a125-bd8bee956540",
+      "comment": "",
+      "command": "mouseDownAt",
+      "target": "name=noaaselect",
+      "targets": [
+        ["name=noaaselect", "name"],
+        ["css=select[name=\"noaaselect\"]", "css"],
+        ["css=select:nth-child(1)", "css:finder"],
+        ["xpath=//select[@name='noaaselect']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/p/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": "-963.640625,-1022.015625"
+    }, {
+      "id": "de505422-05de-46d9-8991-be820e714307",
+      "comment": "",
+      "command": "mouseMoveAt",
+      "target": "name=noaaselect",
+      "targets": [
+        ["name=noaaselect", "name"],
+        ["css=select[name=\"noaaselect\"]", "css"],
+        ["css=select:nth-child(1)", "css:finder"],
+        ["xpath=//select[@name='noaaselect']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/p/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": "-963.640625,-1022.015625"
+    }, {
+      "id": "6549b71b-1871-4cb1-8bdd-e3336cbfe905",
+      "comment": "",
+      "command": "mouseUpAt",
+      "target": "name=noaaselect",
+      "targets": [
+        ["name=noaaselect", "name"],
+        ["css=select[name=\"noaaselect\"]", "css"],
+        ["css=select:nth-child(1)", "css:finder"],
+        ["xpath=//select[@name='noaaselect']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/p/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": "-963.640625,-1022.015625"
+    }, {
+      "id": "d84d07f0-1a2c-4c91-a494-ed6b5966e879",
+      "comment": "",
+      "command": "click",
+      "target": "name=noaaselect",
+      "targets": [
+        ["name=noaaselect", "name"],
+        ["css=select[name=\"noaaselect\"]", "css"],
+        ["css=select:nth-child(1)", "css:finder"],
+        ["xpath=//select[@name='noaaselect']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/p/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "7f13a5bb-2073-4c25-94a0-ba57b28b2530",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["f929976b-c38d-4f26-80a7-fc2321bd355a"]
+  }],
+  "urls": ["https://pocasi.uher.in/"],
+  "plugins": []
+}

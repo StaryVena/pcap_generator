@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  http_crawler:
+    image: udfb/http-generator
+    volumes:
+      - ./output/http_client/log:/tmp
+    command: ["python", "run.py", "-p", "https://pocasi.uher.in", "-c", "chrome"]
+    deploy:
+      mode: replicated
+      replicas: 1
+
+#  selenium-side-runner:
+#    image: udfb/http-selenium
+#    volumes:
+#      - './sides:/sides'
+#      - './output/selenium:/root/out'
+#    deploy:
+#      mode: replicated
+#      replicas: 1

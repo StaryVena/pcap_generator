@@ -1,14 +1,13 @@
 import time
-import logging
 from bs4 import BeautifulSoup as Soup
 import urllib
 from urllib.parse import urljoin
 from urllib import request
-from scrapy.http import HtmlResponse
-from scrapy.linkextractors.lxmlhtml import LxmlParserLinkExtractor
 
 from http_client import HttpClient
 
+tags = ['img', 'embed', 'link', 'script']
+attributes = ['src', 'href']
 
 # http://selenium-python.readthedocs.io/api.html
 class UrllibDownloader(HttpClient):
@@ -18,9 +17,7 @@ class UrllibDownloader(HttpClient):
     :param download_content: If true, alse CSS, images, and scripts are downloaded.
     """
     timeout = 5
-    def __init__(self, wait_interval=10, download_content=True):
-        self.log = logging.getLogger(__name__)
-        self.log.addHandler(logging.NullHandler())
+    def __init__(self, wait_interval=10, download_content=False):
         HttpClient.__init__(self, wait_interval)
         self.download_content = download_content
 
@@ -35,18 +32,21 @@ class UrllibDownloader(HttpClient):
         # downloading page content
 
         if self.download_content:
-            response = HtmlResponse(url=link, body=content, encoding='utf8')
-            tags = ['img', 'embed', 'link', 'script']
-            attributes = ['src', 'href']
-            extractor = LxmlParserLinkExtractor(lambda x: x in tags, lambda x: x in attributes)
-            resource_urls = [urljoin(link, l.url) for l in extractor.extract_links(response)]
-            for content_link in resource_urls:
-                try:
-                    self.links_visited += 1
-                    self.download_file(content_link)
-                except:
-                    self.links_problem += 1
-                    print('Problem resolving content ' + str(content_link))
+            # TODO
+            #response = HtmlResponse(url=link, body=content, encoding='utf8')
+            with urllib.request.urlopen(link) as response:
+                html = response.read()
+
+
+            #extractor = LxmlParserLinkExtractor(lambda x: x in tags, lambda x: x in attributes)
+            #resource_urls = [urljoin(link, l.url) for l in extractor.extract_links(response)]
+            #for content_link in resource_urls:
+            #    try:
+            #        self.links_visited += 1
+            #        self.download_file(content_link)
+            #    except:
+            #        self.links_problem += 1
+            #        print('Problem resolving content ' + str(content_link))
         self.wait()
         return hrefs
 

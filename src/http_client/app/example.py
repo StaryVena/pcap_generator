@@ -8,12 +8,6 @@ WGET = 'wget'
 URLLIB = 'urllib'
 
 
-logging.config.fileConfig('logging.conf')
-logger = logging.getLogger('console')
-#logging.getLogger('clients.http_client_urllib.UrllibDownloader').addHandler()
-#logging.basicConfig(level=logging.DEBUG)
-
-
 def get_crawler(crawler_type):
     if crawler_type == CHROME:
         return SeleniumBrowser()
@@ -21,6 +15,7 @@ def get_crawler(crawler_type):
         return WgetDownloader()
     elif crawler_type == URLLIB:
         return UrllibDownloader()
+
 
 page = 'http://pocasi.uher.in'
 crawler = get_crawler(CHROME)

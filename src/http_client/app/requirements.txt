@@ -2,3 +2,4 @@ validators
 selenium
 beautifulsoup4
 scrapy
+pyvirtualdisplay
