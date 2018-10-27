@@ -19,7 +19,5 @@ docker stack rm webservice
 
 
 
-
-
 docker tag udfb:nginx-tcpdump udfb/nginx-tcpdump
 docker push udfb/nginx-tcpdump

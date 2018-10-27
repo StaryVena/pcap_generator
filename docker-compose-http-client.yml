@@ -5,16 +5,16 @@ services:
     image: udfb/http-generator
     volumes:
       - ./output/http_client/log:/tmp
-    command: ["python", "run.py", "-p", "https://pocasi.uher.in", "-c", "chrome"]
+    command: ["python", "run.py", "-p", "https://www.vutbr.cz", "-c", "chrome"]
     deploy:
       mode: replicated
       replicas: 1
 
-#  selenium-side-runner:
-#    image: udfb/http-selenium
-#    volumes:
-#      - './sides:/sides'
-#      - './output/selenium:/root/out'
-#    deploy:
-#      mode: replicated
-#      replicas: 1
+  selenium-side-runner:
+    image: udfb/http-selenium
+    volumes:
+      - './sides:/sides'
+      - './output/selenium:/root/out'
+    deploy:
+      mode: replicated
+      replicas: 1

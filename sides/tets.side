@@ -1,161 +1,123 @@
 {
-  "id": "62bb4532-9265-4fa2-9767-f6a0c63f53ea",
+  "id": "3c0f2735-40dd-4051-bcc4-274d61115442",
   "version": "1.1",
-  "name": "tets",
-  "url": "https://pocasi.uher.in",
+  "name": "example",
+  "url": "https://www.vutbr.cz",
   "tests": [{
-    "id": "f929976b-c38d-4f26-80a7-fc2321bd355a",
-    "name": "pocasi",
+    "id": "88647753-780e-452c-97a5-17e0b1a904ae",
+    "name": "random_pages",
     "commands": [{
-      "id": "e631b572-6fa6-4a7f-a517-9672753d8880",
+      "id": "146497b4-cbbf-4216-aabe-ded97634948b",
       "comment": "",
       "command": "open",
-      "target": "/",
+      "target": "/?aid_redir=1",
       "targets": [],
       "value": ""
     }, {
-      "id": "924448be-c43e-4aa1-bf10-52a5ee037879",
+      "id": "1ffba2ae-208c-42bb-9b4c-10a0800caea9",
       "comment": "",
       "command": "setWindowSize",
-      "target": "1920x1170",
+      "target": "945x1141",
       "targets": [],
       "value": ""
     }, {
-      "id": "10ab2ba5-d971-4667-9c00-ddd03172efc0",
+      "id": "1ee57752-ea87-456f-9a3a-dc5ef85988bd",
       "comment": "",
       "command": "click",
-      "target": "linkText=Mobile formatted",
+      "target": "css=span.m-main__toggle-label",
       "targets": [
-        ["linkText=Mobile formatted", "linkText"],
-        ["css=p:nth-child(5) > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Mobile formatted')]", "xpath:link"],
-        ["xpath=//div[@id='about']/p[3]/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'mobile.html')]", "xpath:href"],
-        ["xpath=//p[3]/a", "xpath:position"]
+        ["css=span.m-main__toggle-label", "css"],
+        ["css=.m-main__toggle-label", "css:finder"],
+        ["xpath=//nav[@id='m-main']/a/span[3]", "xpath:idRelative"],
+        ["xpath=//nav/a/span[3]", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "fbcea426-f5fd-4906-810c-a258de72a245",
+      "id": "b739b402-56f8-434f-8209-5b5007ade1dd",
       "comment": "",
       "command": "click",
-      "target": "css=input:nth-child(2)",
+      "target": "css=.m-main__item:nth-child(2) > .m-main__toggle-sub",
       "targets": [
-        ["css=input:nth-child(2)", "css:finder"],
-        ["xpath=//input[@value='    Week     ']", "xpath:attributes"],
-        ["xpath=//div[@id='navbar']/input[2]", "xpath:idRelative"],
-        ["xpath=//input[2]", "xpath:position"]
+        ["css=.m-main__item:nth-child(2) > .m-main__toggle-sub", "css:finder"],
+        ["xpath=//nav[@id='m-main']/ul/li[2]/a[2]", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[7]", "xpath:href"],
+        ["xpath=//li[2]/a[2]", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "7de136ad-4af8-43a4-904e-94870d405927",
+      "id": "c80d2bef-1e7e-4194-a519-6e714ba6a30f",
       "comment": "",
       "command": "click",
-      "target": "css=input:nth-child(3)",
+      "target": "css=li.m-main__item.is-opened > div.m-main__submenu > div.m-sub > div.m-sub__col > ul.m-sub__list > li.m-sub__item > a.m-sub__link",
       "targets": [
-        ["css=input:nth-child(3)", "css:finder"],
-        ["xpath=//input[@value='    Month    ']", "xpath:attributes"],
-        ["xpath=//div[@id='navbar']/input[3]", "xpath:idRelative"],
-        ["xpath=//input[3]", "xpath:position"]
+        ["css=li.m-main__item.is-opened > div.m-main__submenu > div.m-sub > div.m-sub__col > ul.m-sub__list > li.m-sub__item > a.m-sub__link", "css"],
+        ["css=.is-opened > .m-main__submenu .m-sub__item:nth-child(1) > .m-sub__link", "css:finder"],
+        ["xpath=//a[contains(text(),'Fakulty a obory')]", "xpath:link"],
+        ["xpath=//nav[@id='m-main']/ul/li[2]/div/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/studuj')]", "xpath:href"],
+        ["xpath=//li[2]/div/div/div/ul/li/a", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "2cce3517-7640-4e16-bdc7-06c944c62c7b",
+      "id": "60fc35cd-a548-4667-880c-0998b0065be0",
       "comment": "",
       "command": "click",
-      "target": "css=input:nth-child(4)",
+      "target": "css=.title--fekt",
       "targets": [
-        ["css=input:nth-child(4)", "css:finder"],
-        ["xpath=//input[@value='    Year     ']", "xpath:attributes"],
-        ["xpath=//div[@id='navbar']/input[4]", "xpath:idRelative"],
-        ["xpath=//input[4]", "xpath:position"]
+        ["css=.title--fekt", "css:finder"],
+        ["xpath=//main[@id='main']/div/div/div/ul/li[3]/a/h2", "xpath:idRelative"],
+        ["xpath=//li[3]/a/h2", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "38c4c6d5-ddf8-4985-95bd-f31cd8792f35",
+      "id": "e15fb759-58aa-44f1-80d3-d31e276e4da6",
       "comment": "",
       "command": "click",
-      "target": "css=input[type=\"button\"]",
+      "target": "css=.m-main__list:nth-child(1) > .m-main__item:nth-child(2) > .m-main__link",
       "targets": [
-        ["css=input[type=\"button\"]", "css"],
-        ["css=input:nth-child(1)", "css:finder"],
-        ["xpath=//input[@value='   Current   ']", "xpath:attributes"],
-        ["xpath=//div[@id='navbar']/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
+        ["css=.m-main__list:nth-child(1) > .m-main__item:nth-child(2) > .m-main__link", "css:finder"],
+        ["xpath=//a[contains(text(),'Nabídka oborů')]", "xpath:link"],
+        ["xpath=//main[@id='main']/div/nav/div/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/studuj/fekt/obory')]", "xpath:href"],
+        ["xpath=//nav/div/ul/li[2]/a", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "22e3af6e-12db-4bb2-b132-f55d3c9d8204",
-      "comment": "",
-      "command": "select",
-      "target": "name=noaaselect",
-      "targets": [],
-      "value": "label=2018-04"
-    }, {
-      "id": "ff9272d5-5c9b-4f63-a125-bd8bee956540",
-      "comment": "",
-      "command": "mouseDownAt",
-      "target": "name=noaaselect",
-      "targets": [
-        ["name=noaaselect", "name"],
-        ["css=select[name=\"noaaselect\"]", "css"],
-        ["css=select:nth-child(1)", "css:finder"],
-        ["xpath=//select[@name='noaaselect']", "xpath:attributes"],
-        ["xpath=//div[@id='navbar']/p/select", "xpath:idRelative"],
-        ["xpath=//select", "xpath:position"]
-      ],
-      "value": "-963.640625,-1022.015625"
-    }, {
-      "id": "de505422-05de-46d9-8991-be820e714307",
-      "comment": "",
-      "command": "mouseMoveAt",
-      "target": "name=noaaselect",
-      "targets": [
-        ["name=noaaselect", "name"],
-        ["css=select[name=\"noaaselect\"]", "css"],
-        ["css=select:nth-child(1)", "css:finder"],
-        ["xpath=//select[@name='noaaselect']", "xpath:attributes"],
-        ["xpath=//div[@id='navbar']/p/select", "xpath:idRelative"],
-        ["xpath=//select", "xpath:position"]
-      ],
-      "value": "-963.640625,-1022.015625"
-    }, {
-      "id": "6549b71b-1871-4cb1-8bdd-e3336cbfe905",
-      "comment": "",
-      "command": "mouseUpAt",
-      "target": "name=noaaselect",
-      "targets": [
-        ["name=noaaselect", "name"],
-        ["css=select[name=\"noaaselect\"]", "css"],
-        ["css=select:nth-child(1)", "css:finder"],
-        ["xpath=//select[@name='noaaselect']", "xpath:attributes"],
-        ["xpath=//div[@id='navbar']/p/select", "xpath:idRelative"],
-        ["xpath=//select", "xpath:position"]
-      ],
-      "value": "-963.640625,-1022.015625"
-    }, {
-      "id": "d84d07f0-1a2c-4c91-a494-ed6b5966e879",
+      "id": "3c18b76f-37ed-4d80-9663-fb429cfc8d17",
       "comment": "",
       "command": "click",
-      "target": "name=noaaselect",
+      "target": "css=.m-main__list:nth-child(1) > .m-main__item:nth-child(3) > .m-main__link",
       "targets": [
-        ["name=noaaselect", "name"],
-        ["css=select[name=\"noaaselect\"]", "css"],
-        ["css=select:nth-child(1)", "css:finder"],
-        ["xpath=//select[@name='noaaselect']", "xpath:attributes"],
-        ["xpath=//div[@id='navbar']/p/select", "xpath:idRelative"],
-        ["xpath=//select", "xpath:position"]
+        ["css=.m-main__list:nth-child(1) > .m-main__item:nth-child(3) > .m-main__link", "css:finder"],
+        ["xpath=//a[contains(text(),'Přijímačky')]", "xpath:link"],
+        ["xpath=//main[@id='main']/div/nav/div/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/studuj/fekt/prijimacky')]", "xpath:href"],
+        ["xpath=//nav/div/ul/li[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ac60826b-e221-43f0-93b0-4c32988a8130",
+      "comment": "",
+      "command": "click",
+      "target": "css=.m-main__list:nth-child(1) > .m-main__item:nth-child(4) > .m-main__link",
+      "targets": [
+        ["css=.m-main__list:nth-child(1) > .m-main__item:nth-child(4) > .m-main__link", "css:finder"],
+        ["xpath=//a[contains(text(),'Den otevřených dveří')]", "xpath:link"],
+        ["xpath=//main[@id='main']/div/nav/div/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/studuj/fekt/dod')]", "xpath:href"],
+        ["xpath=//nav/div/ul/li[4]/a", "xpath:position"]
       ],
       "value": ""
     }]
   }],
   "suites": [{
-    "id": "7f13a5bb-2073-4c25-94a0-ba57b28b2530",
+    "id": "d878cd5a-8ff2-44be-b8d7-01f67dbc417b",
     "name": "Default Suite",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["f929976b-c38d-4f26-80a7-fc2321bd355a"]
+    "tests": ["88647753-780e-452c-97a5-17e0b1a904ae"]
   }],
-  "urls": ["https://pocasi.uher.in/"],
+  "urls": ["https://www.vutbr.cz/"],
   "plugins": []
 }
