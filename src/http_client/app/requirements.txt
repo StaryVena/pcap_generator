@@ -3,3 +3,4 @@ selenium
 beautifulsoup4
 scrapy
 pyvirtualdisplay
+pysmb

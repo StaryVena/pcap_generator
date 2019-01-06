@@ -20,7 +20,6 @@ class WgetDownloader(HttpClient):
         pass
 
     def page_links(self, link):
-        # TODO download images, css, and scripts
         cmd = "wget -q -O - --page-requisites --adjust-extension " + link
         process = Popen(shlex.split(cmd), stdout=PIPE)
         (output, err) = process.communicate()

@@ -1,0 +1,84 @@
+{
+  "id": "49f178ff-42ff-4cf0-b9a1-26a995b8a66e",
+  "version": "1.1",
+  "name": "Pocasi",
+  "url": "https://pocasi.uher.in",
+  "tests": [{
+    "id": "098fca62-b433-4f4f-b230-54d82b502ba8",
+    "name": "Pocasi",
+    "commands": [{
+      "id": "a9a44a47-d456-49e5-a8f6-ded6724cc060",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0a4b9d39-e60f-4e4e-bfae-ff2e60c17bcd",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "945x1141",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b0b138c9-c17a-48d1-b73c-74f8a78547c3",
+      "comment": "",
+      "command": "click",
+      "target": "css=input[type=\"button\"]",
+      "targets": [
+        ["css=input[type=\"button\"]", "css"],
+        ["css=input:nth-child(1)", "css:finder"],
+        ["xpath=//input[@value='   Current   ']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fb7a4749-5df9-46c9-853b-c7ca0d93d572",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(2)",
+      "targets": [
+        ["css=input:nth-child(2)", "css:finder"],
+        ["xpath=//input[@value='    Week     ']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ee7ef5ca-5267-4430-a15f-abb8da30706e",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(3)",
+      "targets": [
+        ["css=input:nth-child(3)", "css:finder"],
+        ["xpath=//input[@value='    Month    ']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9aae5499-6b42-4018-aeb7-40839bd5274a",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(4)",
+      "targets": [
+        ["css=input:nth-child(4)", "css:finder"],
+        ["xpath=//input[@value='    Year     ']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "8fb6791a-de14-4bef-bdc5-32ead2d64bff",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["098fca62-b433-4f4f-b230-54d82b502ba8"]
+  }],
+  "urls": ["https://pocasi.uher.in/"],
+  "plugins": []
+}

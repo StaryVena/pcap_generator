@@ -1,15 +1,15 @@
-import time
+from os import devnull
 from bs4 import BeautifulSoup as Soup
-import urllib
 from urllib.parse import urljoin
 from urllib import request
+from requests import get
 
 from http_client import HttpClient
 
 tags = ['img', 'embed', 'link', 'script']
 attributes = ['src', 'href']
 
-# http://selenium-python.readthedocs.io/api.html
+
 class UrllibDownloader(HttpClient):
     """
     Using Python's urllib for web crawling and downloading.
@@ -17,36 +17,29 @@ class UrllibDownloader(HttpClient):
     :param download_content: If true, alse CSS, images, and scripts are downloaded.
     """
     timeout = 5
-    def __init__(self, wait_interval=10, download_content=False):
+    discard_file = open(devnull, "w")
+
+    def __init__(self, wait_interval=10, download_content=True):
         HttpClient.__init__(self, wait_interval)
         self.download_content = download_content
 
     def end(self):
-        # no need to close anything.
-        pass
+        self.discard_file.close()
 
     def page_links(self, link):
-        content = request.urlopen(link, timeout=self.timeout).read().decode("utf-8")
+        content = get(link, timeout=self.timeout).text
         html = Soup(content, 'html.parser')
-        hrefs = [urljoin(link, a['href']) for a in html.find_all('a')]
+        links = html.find_all('a', href=True)
+        hrefs = [urljoin(link, a['href']) for a in links]
+
         # downloading page content
-
         if self.download_content:
-            # TODO
-            #response = HtmlResponse(url=link, body=content, encoding='utf8')
-            with urllib.request.urlopen(link) as response:
-                html = response.read()
+            for tag in tags:
+                for page_file in html.findAll(tag):
+                    file_link = urljoin(link, page_file.get('src'))
+                    print('Downloading content ', file_link)
+                    request.urlretrieve(file_link, devnull)
 
-
-            #extractor = LxmlParserLinkExtractor(lambda x: x in tags, lambda x: x in attributes)
-            #resource_urls = [urljoin(link, l.url) for l in extractor.extract_links(response)]
-            #for content_link in resource_urls:
-            #    try:
-            #        self.links_visited += 1
-            #        self.download_file(content_link)
-            #    except:
-            #        self.links_problem += 1
-            #        print('Problem resolving content ' + str(content_link))
         self.wait()
         return hrefs
 
@@ -57,3 +50,9 @@ class UrllibDownloader(HttpClient):
         '''
         self.log.debug('Downloading ' + link)
         request.urlopen(link, timeout=self.timeout).read()
+
+
+if __name__ == '__main__':
+    downloader = UrllibDownloader()
+
+    print(downloader.page_links('https://www.seznam.cz'))
