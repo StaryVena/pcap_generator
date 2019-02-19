@@ -17,17 +17,6 @@ def normal_crawling(client):
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument("-u", "--user", dest="user",
-                        help="Username login")
-    parser.add_argument("-p", "--password",
-                        dest="password",
-                        help="User's password")
-    parser.add_argument("-s", "--system_name",
-                        dest="name",
-                        help="Hostname")
-    parser.add_argument("-i", "--ip",
-                        dest="ip",
-                        help="IP address of the server")
     parser.add_argument("-t", "--type",
                         dest="type",
                         choices=['usual', 'attacker'],
@@ -53,7 +42,7 @@ def main():
                         help="Sets maximum backoff interval.")
     args = parser.parse_args()
 
-    client = SambaClient(args.user, args.password, args.name, args.ip, )
+    client = SambaClient(os.environ['SMB_USER'], os.environ['PASSWORD'], os.environ['SMB_HOSTNAME'], os.environ['IP'])
 
     if args.type == 'usual':
         normal_crawling(client)
