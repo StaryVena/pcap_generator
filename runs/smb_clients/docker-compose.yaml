@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  smb_client:
+    container_name: smb_client
+    hostname: smb_clinet
+    build:
+      context: ../../src/smb/client
+    env_file:
+      - credentials.env
+    command: ["python", "crawler_client.py", "-u", USERNAME, "-p", PASSWORD, "-s", HOSTNAME, "-i", IP]
+    deploy:
+      mode: replicated
+      replicas: 1

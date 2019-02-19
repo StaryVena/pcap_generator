@@ -1,11 +1,7 @@
 import os
-import io
-import uuid
+import time
+import random
 from smb.SMBConnection import SMBConnection
-
-CLIENT_NAME = 'admin'
-CLIENT_P = 'oGenTen5'
-SYSTEM_NAME = 'NAS'
 
 
 class SambaClient:
@@ -13,13 +9,17 @@ class SambaClient:
     connection = None
     client_id = 'virtual_client'
 
-    def __init__(self, user_name, password, system_name, ip=''):
+    def __init__(self, user_name, password, system_name, ip='', min=0, max=60, randomize=True):
         self.user_name = user_name
         self.password = password
         self.system_name = system_name
         self.ip = system_name
         if len(ip) > 0:
             self.ip = ip
+
+        self.min = min
+        self.max = max
+        self.randomize = randomize
 
         self.connect()
 
@@ -34,6 +34,7 @@ class SambaClient:
     def list_shares(self):
         try:
             response = self.connection.listShares()
+            self.wait()
             for i in range(len(response)):
                 print(response[i].name)
             return response
@@ -43,6 +44,7 @@ class SambaClient:
     def list_directory(self, share, path='/'):
         try:
             response = self.connection.listPath(share.name, path)
+            self.wait()
             for i in range(len(response)):
                 print(response[i].filename)
             return response
@@ -53,28 +55,31 @@ class SambaClient:
         file = open(os.devnull, "wb")
         try:
             info = self.connection.retrieveFile(share, path, file)
-            print('Downloaded ' + str(info[1]) + ' bytes.')
             file.close()
+            self.wait()
+            print('Downloaded ' + str(info[1]) + ' bytes.')
         except Exception as ex:
             print(ex)
 
     def upload_file(self, share, path, file):
         try:
             self.connection.storeFile(share, path, file)
+            self.wait()
         except Exception as ex:
             print(ex)
 
+    def delete_file(self, share, path):
+        try:
+            info = self.connection.deleteFiles(share, path)
+            print('Deleted ' + str(info[1]) + ' bytes.')
+            self.wait()
+        except Exception as ex:
+            print(ex)
 
-def main():
-    client = SambaClient(CLIENT_NAME, CLIENT_P, SYSTEM_NAME, '192.168.88.2')
-    shares = client.list_shares()
-    dir = 'Pictures'
-    files = client.list_directory(shares[0], path=dir)
-    client.download_file(shares[0].name, dir+'/'+files[4].filename)
-    f = io.BytesIO(os.urandom(200*1024))
-    file_name = 'gen_'+str(uuid.uuid4())+'.txt'
-    client.upload_file(shares[0].name, dir+'/'+file_name, f)
+    def wait(self):
+        if self.randomize:
+            interval = random.randint(self.min, self.max)
+        else:
+            interval = (self.max - self.min)/2
 
-
-if __name__ == "__main__":
-    main()
+        time.sleep(interval)
