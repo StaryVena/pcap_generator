@@ -56,22 +56,23 @@ class SambaClient:
         try:
             info = self.connection.retrieveFile(share, path, file)
             file.close()
-            self.wait()
             print('Downloaded ' + str(info[1]) + ' bytes.')
+            self.wait()
         except Exception as ex:
             print(ex)
 
     def upload_file(self, share, path, file):
         try:
             self.connection.storeFile(share, path, file)
+            print('File {} uploaded.'.format(path))
             self.wait()
         except Exception as ex:
             print(ex)
 
     def delete_file(self, share, path):
         try:
-            info = self.connection.deleteFiles(share, path)
-            print('Deleted ' + str(info[1]) + ' bytes.')
+            self.connection.deleteFiles(share, path)
+            print('Deleted file {}'.format(path))
             self.wait()
         except Exception as ex:
             print(ex)
@@ -81,5 +82,4 @@ class SambaClient:
             interval = random.randint(self.min, self.max)
         else:
             interval = (self.max - self.min)/2
-
         time.sleep(interval)
