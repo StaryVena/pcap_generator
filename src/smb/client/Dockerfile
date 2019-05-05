@@ -11,3 +11,5 @@ RUN pip install -r requirements.txt
 COPY smb_client.py .
 COPY crawler_client.py .
 COPY secret_files.txt .
+COPY users.txt .
+COPY passwords.txt .

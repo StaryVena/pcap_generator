@@ -1,4 +1,5 @@
 import os
+import socket
 import time
 import random
 from smb.SMBConnection import SMBConnection
@@ -7,7 +8,7 @@ from smb.SMBConnection import SMBConnection
 class SambaClient:
 
     connection = None
-    client_id = 'virtual_client'
+    client_id = socket.gethostname()
 
     def __init__(self, user_name, password, system_name, ip='', min=0, max=60, randomize=True):
         self.user_name = user_name
@@ -24,19 +25,24 @@ class SambaClient:
         self.connect()
 
     def connect(self):
+        print('Connecting to server with {} {} {} {} {}'.format(self.user_name, self.password, self.client_id, self.system_name, self.ip))
         self.connection = SMBConnection(self.user_name, self.password, self.client_id, self.system_name)
-
+        print('Connecting to server...')
         # establish the actual connection
-        connected = self.connection.connect(ip=self.ip)
+        connected = self.connection.connect(ip=self.ip, port=139)
         if not connected:
             print('Failed to init connection.')
+        else:
+            print('Connection initialized.')
 
     def list_shares(self):
         try:
             response = self.connection.listShares()
+            names = []
+            for r in response:
+                names.append(r.name)
+            print('Shares: {}'.format(names))
             self.wait()
-            for i in range(len(response)):
-                print(response[i].name)
             return response
         except Exception as ex:
             print(ex)
@@ -44,9 +50,11 @@ class SambaClient:
     def list_directory(self, share, path='/'):
         try:
             response = self.connection.listPath(share.name, path)
+            names = []
+            for r in response:
+                names.append(r.filename)
+            print('Files: {}'.format(names))
             self.wait()
-            for i in range(len(response)):
-                print(response[i].filename)
             return response
         except Exception as ex:
             print(ex)
@@ -54,7 +62,7 @@ class SambaClient:
     def download_file(self, share, path):
         file = open(os.devnull, "wb")
         try:
-            info = self.connection.retrieveFile(share, path, file)
+            info = self.connection.retrieveFile(share.name, path, file)
             file.close()
             print('Downloaded ' + str(info[1]) + ' bytes.')
             self.wait()
@@ -63,7 +71,7 @@ class SambaClient:
 
     def upload_file(self, share, path, file):
         try:
-            self.connection.storeFile(share, path, file)
+            self.connection.storeFile(share.name, path, file)
             print('File {} uploaded.'.format(path))
             self.wait()
         except Exception as ex:
@@ -71,7 +79,7 @@ class SambaClient:
 
     def delete_file(self, share, path):
         try:
-            self.connection.deleteFiles(share, path)
+            self.connection.deleteFiles(share.name, path)
             print('Deleted file {}'.format(path))
             self.wait()
         except Exception as ex:
@@ -83,3 +91,4 @@ class SambaClient:
         else:
             interval = (self.max - self.min)/2
         time.sleep(interval)
+

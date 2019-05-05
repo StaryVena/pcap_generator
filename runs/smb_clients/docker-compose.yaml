@@ -1,14 +1,133 @@
 version: '3'
 
 services:
-  smb_client:
-    container_name: smb_client
-    hostname: smb_clinet
+  smb_client01:
+    container_name: smb_client01
+    hostname: smb_client01
+    extra_hosts:
+     - "WIN-GSKR2JPR1SL:162.168.137.5"
     build:
       context: ../../src/smb/client
     env_file:
-      - credentials.env
-    command: ["python", "crawler_client.py", "-t", "usual", "-n", "max"]
+      - credentials01.env
+    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
     deploy:
       mode: replicated
       replicas: 1
+  smb_client02:
+    container_name: smb_client02
+    hostname: smb_client02
+    extra_hosts:
+     - "WIN-GSKR2JPR1SL:162.168.137.5"
+    build:
+      context: ../../src/smb/client
+    env_file:
+      - credentials02.env
+    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+  smb_client03:
+    container_name: smb_client03
+    hostname: smb_client03
+    extra_hosts:
+     - "WIN-GSKR2JPR1SL:162.168.137.5"
+    build:
+      context: ../../src/smb/client
+    env_file:
+      - credentials03.env
+    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+  smb_client04:
+    container_name: smb_client04
+    hostname: smb_client04
+    extra_hosts:
+     - "WIN-GSKR2JPR1SL:162.168.137.5"
+    build:
+      context: ../../src/smb/client
+    env_file:
+      - credentials04.env
+    command: ["python", "crawler_client.py", "-t", "attacker", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+  smb_client04a:
+    container_name: smb_client04a
+    hostname: smb_client04a
+    extra_hosts:
+     - "WIN-GSKR2JPR1SL:162.168.137.5"
+    build:
+      context: ../../src/smb/client
+    env_file:
+      - credentials04.env
+    command: ["python", "crawler_client.py", "-t", "attacker2", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+#  smb_client05:
+#    container_name: smb_client05
+#    hostname: smb_client05
+#    extra_hosts:
+#     - "WIN-GSKR2JPR1SL:162.168.137.5"
+#    build:
+#      context: ../../src/smb/client
+#    env_file:
+#      - credentials.env
+#    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+#    deploy:
+#      mode: replicated
+#      replicas: 1
+#  smb_client06:
+#    container_name: smb_client06
+#    hostname: smb_client06
+#    extra_hosts:
+#     - "WIN-GSKR2JPR1SL:162.168.137.5"
+#    build:
+#      context: ../../src/smb/client
+#    env_file:
+#      - credentials.env
+#    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+#    deploy:
+#      mode: replicated
+#      replicas: 1
+#  smb_client07:
+#    container_name: smb_client07
+#    hostname: smb_client07
+#    extra_hosts:
+#     - "WIN-GSKR2JPR1SL:162.168.137.5"
+#    build:
+#      context: ../../src/smb/client
+#    env_file:
+#      - credentials.env
+#    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+#    deploy:
+#      mode: replicated
+#      replicas: 1
+#  smb_client08:
+#    container_name: smb_client08
+#    hostname: smb_client08
+#    extra_hosts:
+#     - "WIN-GSKR2JPR1SL:162.168.137.5"
+#    build:
+#      context: ../../src/smb/client
+#    env_file:
+#      - credentials.env
+#    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+#    deploy:
+#      mode: replicated
+#      replicas: 1
+#  smb_client09:
+#    container_name: smb_client09
+#    hostname: smb_client09
+#    extra_hosts:
+#     - "WIN-GSKR2JPR1SL:162.168.137.5"
+#    build:
+#      context: ../../src/smb/client
+#    env_file:
+#      - credentials.env
+#    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+#    deploy:
+#      mode: replicated
+#      replicas: 1
