@@ -15,10 +15,10 @@ services:
     command: sh /script.sh
 
 
-  http_crawler:
+  zhttp_crawler:
     image: udfb/http-generator
     depends_on:
-            - web-nginx
+      - web-nginx
     volumes:
       - ./output/http_client/log:/tmp
     networks:
@@ -26,18 +26,18 @@ services:
     command: ["python", "run.py", "-p", "http://web-nginx.example.com"]
     deploy:
       mode: replicated
-      replicas: 5
+      replicas: 1
 
   ihulk:
     image: udfb/ihulk
     depends_on:
-            - web-nginx
+      - web-nginx
     networks:
       - web
     command: ["python", "ihulk.py", "http://web-nginx.example.com"]
     deploy:
       mode: replicated
-      replicas: 20
+      replicas: 5
 
 
 networks:

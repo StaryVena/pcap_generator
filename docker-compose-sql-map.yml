@@ -3,6 +3,7 @@ version: '3'
 services:
   web-nginx:
     image: udfb/nginx-tcpdump
+    hostname: web-nginx.example.com
     volumes:
       - ./src/nginx/example_site:/usr/share/nginx/html
       - ./output/tcpdump:/tcpdump
@@ -29,15 +30,13 @@ services:
       replicas: 1
 
   sql_map:
-    container_name: sql_map
     hostname: sql_map
-    build:
-      context: /src/sql_attack
+    image: udfb/sql_map
     depends_on:
       - web-nginx
     networks:
       - web
-    command: ["python", "sqlmap.py", "-u", "http://web-nginx.example.com/login.html", "--batch"]
+    command: ["python", "sqlmap.py", "-u", "http://web-nginx.example.com/login.html?user=uzivatel&password=heslo", "--batch"]
     deploy:
       mode: replicated
       replicas: 1

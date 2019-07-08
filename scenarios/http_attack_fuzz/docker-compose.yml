@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  web-nginx:
+    build: ../../src/nginx/
+    image: udfb/nginx-tcpdump
+    volumes:
+      - ../../src/nginx/example_site:/usr/share/nginx/html
+      - ../../output/tcpdump:/tcpdump
+    networks:
+      web:
+        aliases:
+          - web-nginx.example.com
+    ports:
+      - "80:80"
+    command: sh /script.sh
+
+  http_crawler:
+    build: ../../src/http_client
+    image: udfb/http-generator
+    depends_on:
+      - web-nginx
+    volumes:
+      - ../../output/http_client/log:/tmp
+    networks:
+      - web
+    command: ["python", "run.py", "-p", "http://web-nginx.example.com"]
+    deploy:
+      mode: replicated
+      replicas: 5
+
+  http_fuzz:
+    image: apolloclark/kali-linux-web-cli
+    depends_on:
+      - web-nginx
+    networks:
+      - web
+    command: ["wfuzz", "-c", "-z", "file,/usr/share/wfuzz/wordlist/general/common.txt", "--hc", "404", "http://web-nginx/FUZZ"]
+    deploy:
+      mode: replicated
+      replicas: 1
+
+
+networks:
+  web:

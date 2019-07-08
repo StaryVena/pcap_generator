@@ -1,0 +1,107 @@
+version: '3'
+
+services:
+  smb_server:
+    container_name: smb_server
+    hostname: smb_server
+    image: dperson/samba
+    volumes:
+      - ../../runs/smb_server:/shares
+    environment:
+    # "<name;/path>[;browse;readonly;guest;users;admins;writelist;comment]"
+     - SHARE=shares;/shares;yes;no;yes;all;none,all;example1
+     - WORKGROUP=workgroup
+     - NMBD=true
+     - RECYCLE=false
+     - SMB=false
+     - USER=cortex01;GreyCortex2602
+     - USER2=cortex02;GreyCortex2602
+     - USER3=cortex03;GreyCortex2602
+     - USER4=cortex04;GreyCortex2602
+     - USER5=cortex05;GreyCortex2602
+     - USER6=cortex06;GreyCortex2602
+     - USER7=cortex07;GreyCortex2602
+     - USER8=cortex08;GreyCortex2602
+     - USER9=cortex09;GreyCortex2602
+
+
+  smb_client01:
+    container_name: smb_client01
+    hostname: smb_client01
+    build:
+      context: ../../src/smb/client
+    environment:
+     - SMB_USER=cortex01
+     - PASSWORD=GreyCortex2602
+     - SMB_HOSTNAME=smb_server
+     - IP=smb_server
+    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - smb_server
+  smb_client02:
+    container_name: smb_client02
+    hostname: smb_client02
+    build:
+      context: ../../src/smb/client
+    environment:
+    - SMB_USER=cortex01
+    - PASSWORD=GreyCortex2602
+    - SMB_HOSTNAME=smb_server
+    - IP=smb_server
+    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - smb_server
+  smb_client03:
+    container_name: smb_client03
+    hostname: smb_client03
+    build:
+      context: ../../src/smb/client
+    environment:
+    - SMB_USER=cortex01
+    - PASSWORD=GreyCortex2602
+    - SMB_HOSTNAME=smb_server
+    - IP=smb_server
+    command: ["python", "crawler_client.py", "-t", "usual", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - smb_server
+  smb_client04:
+    container_name: smb_client04
+    hostname: smb_client04
+    build:
+      context: ../../src/smb/client
+    environment:
+    - SMB_USER=cortex01
+    - PASSWORD=GreyCortex2602
+    - SMB_HOSTNAME=smb_server
+    - IP=smb_server
+    command: ["python", "crawler_client.py", "-t", "attacker", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - smb_server
+  smb_client04a:
+    container_name: smb_client04a
+    hostname: smb_client04a
+    build:
+      context: ../../src/smb/client
+    environment:
+    - SMB_USER=cortex01
+    - PASSWORD=GreyCortex2602
+    - SMB_HOSTNAME=smb_server
+    - IP=smb_server
+    command: ["python", "crawler_client.py", "-t", "attacker2", "-n", "60", "-s", "shares"]
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - smb_server

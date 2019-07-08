@@ -2,6 +2,7 @@ import io
 import os
 import time
 import uuid
+import socket
 from argparse import ArgumentParser
 from smb_client import SambaClient
 import random
@@ -27,8 +28,18 @@ class Crawler:
     share = None
     dirs = None
 
-    def __init__(self, share, type=TYPES[0], user_name='', password='', system_name='', ip='', min=0, max=60, randomize=True):
+    def __init__(self, share, type=TYPES[0], user_name='', password='', system_name='', ip='', min=0, max=60,
+                 randomize=True):
         print('Container type: {}'.format(type))
+        # try if IP is real address or convert it from domain to IP
+        try:
+            socket.inet_aton(ip)
+            # legal
+        except socket.error:
+            domain = ip
+            ip = socket.gethostbyname(domain)
+            print('Converting from {} to {}.'.format(domain, ip))
+
         if type == TYPES[USUAL]:
             self.actions = ACTIONS
         elif type == TYPES[ATTACKER2]:

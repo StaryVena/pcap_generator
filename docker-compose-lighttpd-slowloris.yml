@@ -1,21 +1,7 @@
 version: '3'
 
 services:
-  web-lighttpd:
-    image: udfb/lighttpd-tcpdump
-
-    volumes:
-      - ./src/nginx/example_site:/var/www/localhost/htdocs
-      - ./output/tcpdump:/tcpdump
-    networks:
-      web:
-        aliases:
-          - web-lighttpd.example.com
-    ports:
-      - "80:80"
-    command: sh /script.sh
-
-  http_crawler:
+  zhttp_crawler:
     image: udfb/http-generator
     depends_on:
             - web-nginx
@@ -38,6 +24,20 @@ services:
     deploy:
       mode: replicated
       replicas: 20
+
+  web-lighttpd:
+    image: udfb/lighttpd-tcpdump
+
+    volumes:
+      - ./src/nginx/example_site:/var/www/localhost/htdocs
+      - ./output/tcpdump:/tcpdump
+    networks:
+      web:
+        aliases:
+          - web-lighttpd.example.com
+    ports:
+      - "80:80"
+    command: sh /script.sh
 
 networks:
   web:
