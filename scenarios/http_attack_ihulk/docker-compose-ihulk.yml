@@ -4,8 +4,8 @@ services:
   web-nginx:
     image: udfb/nginx-tcpdump
     volumes:
-      - ./src/nginx/example_site:/usr/share/nginx/html
-      - ./output/tcpdump:/tcpdump
+      - ../../src/nginx/example_site:/usr/share/nginx/html
+      - ../../output/tcpdump:/tcpdump
     networks:
       web:
         aliases:
@@ -20,7 +20,7 @@ services:
     depends_on:
       - web-nginx
     volumes:
-      - ./output/http_client/log:/tmp
+      - ../../output/http_client/log:/tmp
     networks:
       - web
     command: ["python", "run.py", "-p", "http://web-nginx.example.com"]

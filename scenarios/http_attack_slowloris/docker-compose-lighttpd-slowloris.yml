@@ -6,7 +6,7 @@ services:
     depends_on:
             - web-nginx
     volumes:
-      - ./output/http_client/log:/tmp
+      - ../../output/http_client/log:/tmp
     networks:
       - web
     command: ["python", "run.py", "-p", "http://web-lighttpd.example.com"]
@@ -29,8 +29,8 @@ services:
     image: udfb/lighttpd-tcpdump
 
     volumes:
-      - ./src/nginx/example_site:/var/www/localhost/htdocs
-      - ./output/tcpdump:/tcpdump
+      - ../../src/nginx/example_site:/var/www/localhost/htdocs
+      - ../../output/tcpdump:/tcpdump
     networks:
       web:
         aliases:

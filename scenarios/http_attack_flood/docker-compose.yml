@@ -3,14 +3,9 @@ version: '3'
 services:
   web-nginx:
     image: udfb/nginx-tcpdump
-    deploy:
-      resources:
-        limits:
-          cpus: '0.1'
-
     volumes:
-      - ./src/nginx/example_site:/usr/share/nginx/html
-      - ./output/tcpdump:/tcpdump
+      - ../../src/nginx/example_site:/usr/share/nginx/html
+      - ../../output/tcpdump:/tcpdump
     networks:
       web:
         aliases:
@@ -19,12 +14,13 @@ services:
       - "80:80"
     command: sh /script.sh
 
+
   http_crawler:
     image: udfb/http-generator
     depends_on:
             - web-nginx
     volumes:
-      - ./output/http_client/log:/tmp
+      - ../../output/http_client/log:/tmp
     networks:
       - web
     command: ["python", "run.py", "-p", "http://web-nginx.example.com"]
@@ -32,16 +28,17 @@ services:
       mode: replicated
       replicas: 5
 
-  slowloris:
-    image: udfb/slowloris
+  http-flood:
+    image: udfb/attack-http-flood
     depends_on:
             - web-nginx
     networks:
       - web
-    command: ["slowloris", "web-nginx.example.com"]
+    command: ["python", "wreckuests.py", "-v", "http://web-nginx.example.com", "-t", "2"]
     deploy:
       mode: replicated
       replicas: 20
+
 
 networks:
   web:

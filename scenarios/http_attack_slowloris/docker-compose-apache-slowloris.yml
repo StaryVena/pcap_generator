@@ -4,7 +4,7 @@ services:
   web-apache:
     image: udfb/apache-tcpdump
     volumes:
-      - ./output/tcpdump:/tcpdump
+      - ../../output/tcpdump:/tcpdump
     networks:
       web:
         aliases:
@@ -18,7 +18,7 @@ services:
     depends_on:
             - web-nginx
     volumes:
-      - ./output/http_client/log:/tmp
+      - ../../output/http_client/log:/tmp
     networks:
       - web
     command: ["python", "run.py", "-p", "http://web-apache.example.com"]

@@ -3,9 +3,10 @@ version: '3'
 services:
   web-nginx:
     image: udfb/nginx-tcpdump
+    hostname: web-nginx.example.com
     volumes:
-      - ./src/nginx/example_site:/usr/share/nginx/html
-      - ./output/tcpdump:/tcpdump
+      - ../../src/nginx/example_site:/usr/share/nginx/html
+      - ../../output/tcpdump:/tcpdump
     networks:
       web:
         aliases:
@@ -18,26 +19,27 @@ services:
   http_crawler:
     image: udfb/http-generator
     depends_on:
-            - web-nginx
+      - web-nginx
     volumes:
-      - ./output/http_client/log:/tmp
+      - ../../output/http_client/log:/tmp
     networks:
       - web
     command: ["python", "run.py", "-p", "http://web-nginx.example.com"]
     deploy:
       mode: replicated
-      replicas: 5
+      replicas: 1
 
-  http-flood:
-    image: udfb/attack-http-flood
+  sql_map:
+    hostname: sql_map
+    image: udfb/sql_map
     depends_on:
-            - web-nginx
+      - web-nginx
     networks:
       - web
-    command: ["python", "wreckuests.py", "-v", "http://web-nginx.example.com", "-t", "2"]
+    command: ["python", "sqlmap.py", "-u", "http://web-nginx.example.com/login.html?user=uzivatel&password=heslo", "--batch"]
     deploy:
       mode: replicated
-      replicas: 20
+      replicas: 1
 
 
 networks:

@@ -3,10 +3,14 @@ version: '3'
 services:
   web-nginx:
     image: udfb/nginx-tcpdump
-    hostname: web-nginx.example.com
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+
     volumes:
-      - ./src/nginx/example_site:/usr/share/nginx/html
-      - ./output/tcpdump:/tcpdump
+      - ../../src/nginx/example_site:/usr/share/nginx/html
+      - ../../output/tcpdump:/tcpdump
     networks:
       web:
         aliases:
@@ -15,32 +19,29 @@ services:
       - "80:80"
     command: sh /script.sh
 
-
   http_crawler:
     image: udfb/http-generator
     depends_on:
-      - web-nginx
+            - web-nginx
     volumes:
-      - ./output/http_client/log:/tmp
+      - ../../output/http_client/log:/tmp
     networks:
       - web
     command: ["python", "run.py", "-p", "http://web-nginx.example.com"]
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 5
 
-  sql_map:
-    hostname: sql_map
-    image: udfb/sql_map
+  slowloris:
+    image: udfb/slowloris
     depends_on:
-      - web-nginx
+            - web-nginx
     networks:
       - web
-    command: ["python", "sqlmap.py", "-u", "http://web-nginx.example.com/login.html?user=uzivatel&password=heslo", "--batch"]
+    command: ["slowloris", "web-nginx.example.com"]
     deploy:
       mode: replicated
-      replicas: 1
-
+      replicas: 20
 
 networks:
   web:

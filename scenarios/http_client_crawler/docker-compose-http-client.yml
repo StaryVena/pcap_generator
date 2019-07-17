@@ -4,7 +4,7 @@ services:
   http_crawler:
     image: udfb/http-generator
     volumes:
-      - ./output/http_client/log:/tmp
+      - ../../output/http_client/log:/tmp
     command: ["python", "run.py", "-p", "https://www.vutbr.cz", "-c", "chrome"]
     deploy:
       mode: replicated
@@ -13,8 +13,8 @@ services:
   selenium-side-runner:
     image: udfb/http-selenium
     volumes:
-      - './sides:/sides'
-      - './output/selenium:/root/out'
+      - ../../sides:/sides
+      - ../../output/selenium:/root/out
     deploy:
       mode: replicated
       replicas: 1
