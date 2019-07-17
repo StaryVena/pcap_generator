@@ -35,6 +35,11 @@ Monitor running containers:
 docker stack ps  --no-trunc webservice
 ```
 
+Show logs for given service:
+```bash
+docker service logs webservice_[container_name]
+```
+
 Terminate running scenario:
 ```bash
 docker stack rm webservice
@@ -42,28 +47,27 @@ docker stack rm webservice
 
 Note: in all scenarios is `webservice` name of service which containers run under.
 
-## Description
-install docker
+## Another docker useful commands
 
-install docker compose
-
+```bash
 docker tag mylocalimage:latest username/reponame:tag
+```
 
+```bash
 docker push username/reponame:tag
+```
 
+```bash
+docker service logs webservice_http_fuzz
+```
 
-docker stack deploy --compose-file docker-compose.yml webservice
-
-docker stack ps webservice
-
-docker stack rm webservice
-
-
-
+```bash
 docker tag udfb:nginx-tcpdump udfb/nginx-tcpdump
+```
 
+```bash
 docker push udfb/nginx-tcpdump
-
+```
 
 ##### Generate pdf version of this file:
 

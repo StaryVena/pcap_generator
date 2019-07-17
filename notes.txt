@@ -1,3 +1,0 @@
-docker stack ps  --no-trunc webservice
-docker service logs webservice_http_fuzz
-docker stack rm webservice
