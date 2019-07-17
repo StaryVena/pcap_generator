@@ -24,8 +24,7 @@ The script runs the docker-compose file, waits 10 minutes and then ps containers
 
 Manual way to run a scenario:
 
-
-Information obtained from: [Kali Tool page]()bash
+```bash
 docker stack deploy --compose-file docker-compose.yml webservice
 
 ```

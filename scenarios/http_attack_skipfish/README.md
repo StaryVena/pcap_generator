@@ -19,7 +19,8 @@ Source: https://code.google.com/p/skipfish/
 ```
 root@kali:~# skipfish -h
 skipfish web application scanner - version 2.10b
-Usage: skipfish [ options ... ] -W wordlist -o output_dir start_url [ start_url2 ... ]
+Usage: skipfish [ options ... ] -W wordlist -o output_dir \
+                start_url [ start_url2 ... ]
 
 Authentication and access options:
 

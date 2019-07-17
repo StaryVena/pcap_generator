@@ -1,4 +1,5 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
 $if(beamerarticle)$
 \usepackage{beamerarticle} % needs to be loaded first
 $endif$
@@ -11,6 +12,7 @@ $if(linestretch)$
 \usepackage{setspace}
 \setstretch{$linestretch$}
 $endif$
+
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -200,7 +202,7 @@ $endif$
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
+\pagenumbering{gobble}
 $for(header-includes)$
 $header-includes$
 $endfor$
@@ -220,6 +222,7 @@ $if(institute)$
 \institute{$for(institute)$$institute$$sep$ \and $endfor$}
 $endif$
 \date{$date$}
+
 
 \begin{document}
 $if(title)$
