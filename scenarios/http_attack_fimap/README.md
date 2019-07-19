@@ -1,4 +1,4 @@
-#fimap
+# fimap
 Information obtained from: [Kali Tool page](https://tools.kali.org/web-applications/fimap)
 
 fimap is a little python tool which can find, prepare, audit, exploit and even google automatically for local and remote file inclusion bugs in webapps. fimap should be something like sqlmap just for LFI/RFI bugs instead of SQL injection. It’s currently under heavy development but it’s usable.

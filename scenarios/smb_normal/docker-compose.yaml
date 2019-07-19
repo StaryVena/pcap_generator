@@ -2,6 +2,7 @@ version: '3'
 
 services:
   smb_server:
+    # https://github.com/dperson/samba
     container_name: smb_server
     hostname: smb_server
     image: dperson/samba
@@ -9,7 +10,7 @@ services:
       - ../../runs/smb_server:/shares
     environment:
     # "<name;/path>[;browse;readonly;guest;users;admins;writelist;comment]"
-     - SHARE=shares;/shares;yes;no;yes;all;none,all;example1
+     - SHARE=shares;/shares;yes;no;yes;all;all,all;all share
      - WORKGROUP=workgroup
      - NMBD=true
      - RECYCLE=false
