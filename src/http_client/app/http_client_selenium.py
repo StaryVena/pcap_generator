@@ -1,5 +1,6 @@
 import abc
 from http_client import HttpClient
+from headless_browsers import chrome_driver
 # from headless_browsers import chrome_driver
 
 
@@ -10,7 +11,7 @@ class SeleniumBrowser(HttpClient):
     :param wait_interval: Defines how many seconds wait before processing next page.
     :param page_load_interval: browser waits for a maximum of defined seconds for page to be loaded and then continues.
     """
-    def __init__(self, driver, wait_interval=10, page_load_interval=5):
+    def __init__(self, driver=chrome_driver(), wait_interval=10, page_load_interval=5):
         HttpClient.__init__(self, wait_interval)
         self.driver = driver
         # wait up to wait_interval seconds for the elements to become available

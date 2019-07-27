@@ -67,12 +67,10 @@ class HttpClient(object):
                 print(e)
                 print('Problem processing '+link_to_process)
                 self.links_problem += 1
-                print(str(self.client_id) + ' status - problems: ' + str(self.links_problem) +  ' from: ' +
-                          str(self.links_visited))
-
+                print(str(self.client_id) + ' status - problems: ' + str(self.links_problem) + ' from: '
+                      + str(self.links_visited))
 
         self.end()
-
 
     def wait(self):
         time.sleep(randint(1, self.wait_interval))

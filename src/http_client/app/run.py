@@ -7,8 +7,6 @@ WGET = 'wget'
 URLLIB = 'urllib'
 
 
-
-
 def get_crawler(crawler_type):
     if crawler_type == CHROME:
         from selenium import webdriver

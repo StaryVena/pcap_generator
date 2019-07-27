@@ -1,6 +1,6 @@
 # Slowloris
 This scenario is based on  [slowloris.py](https://github.com/gkbrk/slowloris) python script.
-Here is official documentation from https://github.com/gkbrk/slowloris:
+Here is official documentation from the [official repository](https://github.com/gkbrk/slowloris):
 
 ## What is Slowloris?
 Slowloris is basically an HTTP Denial of Service attack that affects threaded servers. It works like this:
@@ -39,3 +39,10 @@ It is possible to modify the behaviour of slowloris with command-line arguments.
 
 ## License
 The code is licensed under the MIT License.
+
+-----
+
+## Scenario usage
+There are three types of scripts: `attack_apache_slowloris.sh` (scenario with Apache web server), 
+`attack_lighttpd_slowloris.sh` (scenario with lighttpd web server), and `attack_slowloris.sh` 
+(scenario with ngingx web server).
