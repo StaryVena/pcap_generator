@@ -101,7 +101,3 @@ randomly, but always starts with *gen_* prefix.
 
 After performed operation, there is random wait interval between 0 and 60 seconds (except 
 listing directory).
-
-```
-
-```
