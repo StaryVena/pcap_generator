@@ -6,4 +6,4 @@ plugins for [Chrome](https://chrome.google.com/webstore/detail/selenium-ide/mooi
 and [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/selenium-ide/) for test recording. The recorded test can be
 saved saved in the `sides` directory located in the root of the project.
 
-The test are run once per the container startup, but scenario will run the container again until time is over.
+The tests are run once per the container startup, but scenario will run the container again until time is over.
